@@ -1,0 +1,44 @@
+<div class="encabezado">
+  <p>Un espacio de innovación en el siglo XXI</p>
+</div>
+<mat-drawer-container class="example-container" autosize>
+  <!--SIDEBAR-->
+    <mat-drawer
+     [opened]="!isMobile()" 
+     #drawer 
+     class="example-sidenav" 
+     [mode]="isMobile() ?'over' : 'side'">
+
+      <p>Auto-resizing sidenav</p>
+      @if (showFiller) {
+        <p>Lorem, ipsum dolor sit amet consectetur.</p>
+      }
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        Toggle extra text
+      </button>
+    </mat-drawer>
+    <!--SIDEBAR-->
+  
+    <div class="example-sidenav-content">
+        <mat-toolbar color="primary">
+
+            <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+              </button>
+            <span>My Application</span>
+          </mat-toolbar>
+
+          <main style="padding: 1rem;">
+            <app-users />
+          </main>
+    <!--
+
+        <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    -->      
+      
+    </div>
+  
+  </mat-drawer-container>
+  
