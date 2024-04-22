@@ -14,7 +14,7 @@ import { DashboardModule } from './layouts/dashboard/dashboard.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DashboardModule
+    DashboardModule,
   ],
   providers: [
     provideAnimationsAsync()

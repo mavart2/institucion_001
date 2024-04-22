@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { IUser } from '../../models';
 
 @Component({
   selector: 'app-user-dialog',
@@ -9,15 +10,23 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class UserDialogComponent {
   userForm: FormGroup;
-  constructor(private formbuilder: FormBuilder, private matDialogRef: MatDialogRef<UserDialogComponent>){
+
+  constructor(private formbuilder: FormBuilder, private matDialogRef: MatDialogRef<UserDialogComponent>,
+  @Inject(MAT_DIALOG_DATA) private editingUser?: IUser
+  ){
     this.userForm = this.formbuilder.group({
       firstName: ['',[ Validators.required,Validators.pattern('^[a-zA-ZÁÉÍÓÚáéíóúñÑ]+$')]],
       lastName: ['',[Validators.required,Validators.pattern('^[a-zA-ZÁÉÍÓÚáéíóúñÑ]+$')]],
       career: ['',[Validators.required,Validators.pattern('^[a-zA-ZÁÉÍÓÚáéíóúñÑ]+$')]],
       courses: ['',[Validators.required, Validators.pattern('^[a-zA-ZÁÉÍÓÚáéíóúñÑ, ]+$')]],
-      email: ['',[Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}')] ]
+      email: ['',[Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}')] ],
+      role: ['USER', [Validators.required]]
 
-    })
+    });
+    if(editingUser){
+      this.userForm.patchValue(editingUser);
+    }
+    
 
   }
   onSave(): void{
